@@ -42,7 +42,7 @@ def get_post_puppies(request):
     if request.method == 'POST':
         data = {
             'name': request.data.get('name'),
-            'age': int(request.data.get('age')),
+            'age': request.data.get('age'),
             'breed': request.data.get('breed'),
             'color': request.data.get('color')
         }
