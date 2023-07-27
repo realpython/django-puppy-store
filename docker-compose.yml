@@ -17,7 +17,10 @@ services:
     build: .
     restart: always
     environment: *common-variables
-    command: sh -c "cd puppy_store; python manage.py migrate; python manage.py collectstatic --noinput; python manage.py runserver 0.0.0.0:8000"
+    command: >
+      sh -c "cd puppy_store; python manage.py migrate; 
+      python manage.py collectstatic --noinput; python
+       manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
