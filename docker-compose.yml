@@ -1,0 +1,35 @@
+version: '3.4'
+
+x-common-variables: &common-variables
+  POSTGRES_DB: my_django_db
+  POSTGRES_USER: my_django_user
+  POSTGRES_PASSWORD: my_django_password
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment: *common-variables
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    restart: always
+    environment: *common-variables
+    command: sh -c "cd puppy_store; python manage.py migrate; python manage.py collectstatic --noinput; python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  tests:
+    build: .
+    environment: *common-variables
+    command: sh -c "cd puppy_store; python manage.py test"
+    volumes:
+      - .:/code
+    depends_on:
+      - db
