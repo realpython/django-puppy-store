@@ -1,0 +1,23 @@
+name: CI/CD for Dockerized Django App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and run tests
+        env:
+          POSTGRES_DB: my_django_db
+          POSTGRES_USER: my_django_user
+          POSTGRES_PASSWORD: my_django_password
+        run: |
+          docker-compose build
+          docker-compose run tests
