@@ -14,6 +14,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Docker Compose
+        run: docker-compose up -d
+
       - name: Build and run tests
         env:
           POSTGRES_DB: my_django_db
