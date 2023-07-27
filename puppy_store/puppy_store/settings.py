@@ -79,6 +79,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'puppy_store.wsgi.application'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -86,11 +87,11 @@ WSGI_APPLICATION = 'puppy_store.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'puppy_store_drf',
-        'USER': '',     # <your-user>
-        'PASSWORD': '', # <your-password>
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
